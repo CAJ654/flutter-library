@@ -26,7 +26,7 @@ class AppTheme {
         onSurface: onSurface,
         outline: border,
       ),
-      cardTheme: const CardThemeData(color: card, elevation: 0),
+      cardTheme: const CardTheme(color: card, elevation: 0),
       dividerTheme: const DividerThemeData(color: border),
       textTheme: GoogleFonts.interTextTheme(
         ThemeData.dark().textTheme,
@@ -58,7 +58,7 @@ class AppTheme {
         onSurface: onSurface,
         outline: border,
       ),
-      cardTheme: const CardThemeData(color: card, elevation: 0),
+      cardTheme: const CardTheme(color: card, elevation: 0),
       dividerTheme: const DividerThemeData(color: border),
       textTheme: GoogleFonts.interTextTheme(
         ThemeData.light().textTheme,

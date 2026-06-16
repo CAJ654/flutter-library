@@ -84,14 +84,29 @@ class _OtpInputState extends State<OtpInput> {
     _nodes = List.generate(widget.length, (i) {
       final node = FocusNode();
       node.addListener(() => setState(() {}));
+      node.onKeyEvent = (_, event) {
+        if (event is KeyDownEvent &&
+            event.logicalKey == LogicalKeyboardKey.backspace &&
+            _ctrls[i].text.isEmpty &&
+            i > 0) {
+          _nodes[i - 1].requestFocus();
+          _ctrls[i - 1].clear();
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      };
       return node;
     });
   }
 
   @override
   void dispose() {
-    for (final c in _ctrls) c.dispose();
-    for (final n in _nodes) n.dispose();
+    for (final c in _ctrls) {
+      c.dispose();
+    }
+    for (final n in _nodes) {
+      n.dispose();
+    }
     super.dispose();
   }
 
@@ -103,18 +118,10 @@ class _OtpInputState extends State<OtpInput> {
     setState(() => _completed = code.length == widget.length);
   }
 
-  void _onKeyDown(RawKeyEvent event, int index) {
-    if (event is RawKeyDownEvent &&
-        event.logicalKey == LogicalKeyboardKey.backspace &&
-        _ctrls[index].text.isEmpty &&
-        index > 0) {
-      _nodes[index - 1].requestFocus();
-      _ctrls[index - 1].clear();
-    }
-  }
-
   void _reset() {
-    for (final c in _ctrls) c.clear();
+    for (final c in _ctrls) {
+      c.clear();
+    }
     setState(() => _completed = false);
     _nodes[0].requestFocus();
   }
@@ -154,10 +161,7 @@ class _OtpInputState extends State<OtpInput> {
               final hasValue = _ctrls[i].text.isNotEmpty;
               return Padding(
                 padding: EdgeInsets.only(right: i < widget.length - 1 ? 10 : 0),
-                child: RawKeyboardListener(
-                  focusNode: FocusNode(),
-                  onKey: (e) => _onKeyDown(e, i),
-                  child: AnimatedContainer(
+                child: AnimatedContainer(
                     duration: const Duration(milliseconds: 150),
                     width: 46,
                     height: 54,
@@ -207,7 +211,6 @@ class _OtpInputState extends State<OtpInput> {
                       ),
                     ),
                   ),
-                ),
               );
             }),
           ),
