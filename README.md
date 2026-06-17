@@ -1,5 +1,9 @@
 # Flutter Component Library
 
+TODO: update url to my custom domain
+TODO: update loaders to have a fully animated mode where they go from 0%-100%
+TODO: update scrolling of code to allow it to take up more of the screen
+
 An interactive UI component library built with Flutter Web. Instead of a standard app, this project demonstrates production-ready, reusable components — the kind of tools you'd build *for* other developers.
 
 **[Live Demo →](https://caj654.github.io/flutter-library)**
